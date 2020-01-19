@@ -23,7 +23,7 @@ class HeatMap : public General2D {
     Render() final;
 
     void
-    Shader() final;
+    Shader();
 
     void
     Draw() final;

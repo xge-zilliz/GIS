@@ -1,23 +1,24 @@
+// point_map
 {
   "width": 300,
   "height": 200,
-  "description": "circle_2d",
+  "description": "point_map",
   "data": [
     {
-      "name": "nyc_taxi",
-      "url": "data/nyc_taxi_0_5m.csv"
+      "name": "data",
+      "url": "data/data.csv"
     }
   ],
   "scales": [
     {
       "name": "x",
       "type": "linear",
-      "domain": {"data": "nyc_taxi", "field": "longitude_pickup"}
+      "domain": {"data": "data", "field": "c0"}
     },
     {
       "name": "y",
       "type": "linear",
-      "domain": {"data": "nyc_taxi", "field": "latitude_pickup"}
+      "domain": {"data": "data", "field": "c1"}
     }
   ],
   "marks": [
@@ -34,7 +35,39 @@
   ]
 }
 
+// choropleth_map
+{
+  "width": 300,
+  "height": 200,
+  "description": "choropleth_map",
+  "data": [
+    {
+      "name": "data",
+      "url": "data/data.csv"
+    }
+  ],
+  "scales": [
+    {
+      "name": "building",
+      "type": "linear",
+      "domain": {"data": "data", "field": "c0"}
+    }
+  ],
+  "marks": [
+    {
+      "encode": {
+        "enter": {
+          "bounding_box": {"value": [-74.05996214647708, 40.67830853301683, -73.78204329732839, 40.85424506900077]},
+          "color_style": {"value": "blue_to_red"},
+          "ruler": {"value": [2.5, 10]},
+          "opacity": {"value": 0.5}
+        }
+      }
+    }
+  ]
+}
 
+// heat_map
 {
   "width": 300,
   "height": 200,

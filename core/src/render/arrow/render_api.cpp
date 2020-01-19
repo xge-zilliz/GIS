@@ -14,7 +14,7 @@ get_pointmap(std::shared_ptr<arrow::Array> arr_x, std::shared_ptr<arrow::Array> 
     assert(x_length == y_length);
     assert(x_type == arrow::Type::UINT32);
     assert(y_type == arrow::Type::UINT32);
-    int64_t num_vertices = x_length / sizeof(uint32_t);
+    int64_t num_vertices = x_length;
 
     //array{ArrayData{vector<Buffer{uint8_t*}>}}
     auto x_data = (uint32_t *) arr_x->data()->GetValues<uint8_t>(1);
@@ -52,7 +52,7 @@ get_heatmap(std::shared_ptr<arrow::Array> arr_x, std::shared_ptr<arrow::Array> a
     assert(x_length == c_length);
     assert(x_type == arrow::Type::UINT32);
     assert(y_type == arrow::Type::UINT32);
-    int64_t num_vertices = x_length / sizeof(uint32_t);
+    int64_t num_vertices = x_length;
 
     //array{ArrayData{vector<Buffer{uint8_t*}>}}
     auto x_data = (uint32_t *) arr_x->data()->GetValues<uint8_t>(1);
@@ -83,6 +83,42 @@ get_heatmap(std::shared_ptr<arrow::Array> arr_x, std::shared_ptr<arrow::Array> a
         default:
             std::cout << "type error!";
     }
+
+    auto output_length = output.second;
+    auto output_data = output.first;
+    auto bit_map = (uint8_t*)malloc(output_length);
+    memset(bit_map, output_length, 0xff);
+    auto buffer0 = std::make_shared<arrow::Buffer>(bit_map, output_length);
+    auto buffer1 = std::make_shared<arrow::Buffer>(output_data.get(), output_length);
+    auto buffers = std::vector<std::shared_ptr<arrow::Buffer>>();
+    buffers.emplace_back(buffer0);
+    buffers.emplace_back(buffer1);
+
+    auto data_type = arrow::uint8();
+    auto array_data = arrow::ArrayData::Make(data_type, output_length, buffers);
+    auto array = arrow::MakeArray(array_data);
+    return array;
+}
+
+std::shared_ptr<arrow::Array>
+get_choropleth_map(std::shared_ptr<arrow::Array> arr_wkt, std::shared_ptr<arrow::Array> arr_color) {
+
+    auto arr_wkt_length = arr_wkt->length();
+    auto arr_color_length = arr_color->length();
+    auto wkt_type = arr_wkt->type_id();
+    auto color_type = arr_color->type_id();
+    assert(arr_wkt_length == arr_color_length);
+    assert(wkt_type == arrow::Type::STRING);
+    assert(color_type == arrow::Type::UINT32);
+    int64_t num_buildings = arr_wkt_length;
+
+    //array{ArrayData{vector<Buffer{uint8_t*}>}}
+    auto x_data = (std::string *) arr_wkt->data()->GetValues<uint8_t>(1);
+    auto y_data = (uint32_t *) arr_color->data()->GetValues<uint8_t>(1);
+    auto input_x = std::shared_ptr<std::string>(x_data);
+    auto input_y = std::shared_ptr<uint32_t>(y_data);
+
+    auto output = (input_x, input_y, num_buildings);
 
     auto output_length = output.second;
     auto output_data = output.first;

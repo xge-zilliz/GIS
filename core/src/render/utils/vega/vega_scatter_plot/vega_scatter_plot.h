@@ -6,14 +6,13 @@
 namespace zilliz {
 namespace render {
 
+struct CircleParams {
+    int radius;
+    Color color;
+};
 
 class VegaScatterPlot: public Vega {
  public:
-    struct CircleParams {
-        int radius;
-        Color color;
-    };
-
     virtual std::string
     Build() = 0;
 

@@ -13,6 +13,19 @@ struct Color {
     float a;
 };
 
+enum class ColorStyle : int {
+    kUnknown,
+    kBlueToRed,
+    kSkyBlueToWhite,
+    kPurpleToYellow,
+    kRedTransParency,
+    kBlueTransParency,
+    kBlueGreenYellow,
+    kWhiteToBlue,
+    kBlueWhiteRed,
+    kGreenYellowRed
+};
+
 class ColorParser {
  public:
     ColorParser(const std::string& css_color_string);

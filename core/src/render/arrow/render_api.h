@@ -11,6 +11,9 @@ get_pointmap(std::shared_ptr<arrow::Array> arr_x, std::shared_ptr<arrow::Array> 
 std::shared_ptr<arrow::Array>
 get_heatmap(std::shared_ptr<arrow::Array> arr_x, std::shared_ptr<arrow::Array> arr_y, std::shared_ptr<arrow::Array> arr_c);
 
+std::shared_ptr<arrow::Array>
+get_choropleth_map(std::shared_ptr<arrow::Array> arr_wkt, std::shared_ptr<arrow::Array> arr_color);
+
 //std::shared_ptr<arrow::Array>
 //get_pointmap(std::shared_ptr<arrow::Array> arr_x);
 }

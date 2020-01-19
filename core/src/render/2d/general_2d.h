@@ -16,9 +16,6 @@ class General2D {
     Render() = 0;
 
     virtual void
-    Shader() = 0;
-
-    virtual void
     Draw() = 0;
 
     virtual void

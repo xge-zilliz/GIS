@@ -3,6 +3,7 @@ set(2d_src
         ${CMAKE_CURRENT_SOURCE_DIR}/render/2d/pointmap.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/2d/general_2d.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/2d/heatmap.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/render/2d/choropleth_map.cpp
         #        ${CMAKE_CURRENT_SOURCE_DIR}/render/2d/cuda/heatmap.cu
         )
 
@@ -16,6 +17,7 @@ set(util_src
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega_scatter_plot/vega_circle2d.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega_heatmap/vega_heatmap.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega_choropleth_map/vega_choropleth_map.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/color/color.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/color/color_gradient.cpp
         )
@@ -65,6 +67,7 @@ if (CPU_ONLY)
             arrow
             pthread
             miniz
+#            gdal
             )
 else ()
     target_link_libraries(GIS
@@ -74,6 +77,7 @@ else ()
             arrow
             pthread
             miniz
+#            gdal
             )
 endif ()
 

@@ -2,6 +2,9 @@
 
 #include <vector>
 
+#include "color.h"
+#include "render/utils/vega/vega_scatter_plot/vega_scatter_plot.h"
+
 
 namespace zilliz {
 namespace render {
@@ -19,6 +22,9 @@ class ColorGradient
     std::vector<ColorPoint> color;
 
  public:
+    static CircleParams
+    GetCircleParams(ColorStyle color_style, double ratio);
+
     ColorGradient()  {  createDefaultHeatMapGradient();  }
 
     void createDefaultHeatMapGradient();
