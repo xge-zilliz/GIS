@@ -10,9 +10,9 @@ namespace render {
 template<typename T>
 class ChoroplethMap : public General2D {
  public:
-    ChoroplethMap() = default;
+    ChoroplethMap();
 
-    ChoroplethMap(std::string *choropleth_wkt, T *count, int64_t num_vertices);
+    ChoroplethMap(std::vector<std::string> choropleth_wkt, T *count, int64_t num_vertices);
 
     std::shared_ptr<uint8_t>
     Render() final;
@@ -37,7 +37,7 @@ class ChoroplethMap : public General2D {
     SetColor();
 
  private:
-    std::string *choropleth_wkt_;
+    std::vector<std::string> choropleth_wkt_;
     T *count_;
     int64_t num_buildings_;
     VegaChoroplethMap choropleth_vega_;

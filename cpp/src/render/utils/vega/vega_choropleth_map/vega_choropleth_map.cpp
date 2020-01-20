@@ -60,8 +60,8 @@ VegaChoroplethMap::Parse(const std::string &json) {
         }
     }
     bounding_box_.longitude_left = mark_enter["bounding_box"]["value"][0].GetDouble();
-    bounding_box_.longitude_right = mark_enter["bounding_box"]["value"][1].GetDouble();
-    bounding_box_.latitude_left = mark_enter["bounding_box"]["value"][2].GetDouble();
+    bounding_box_.latitude_left = mark_enter["bounding_box"]["value"][1].GetDouble();
+    bounding_box_.longitude_right = mark_enter["bounding_box"]["value"][2].GetDouble();
     bounding_box_.latitude_right = mark_enter["bounding_box"]["value"][3].GetDouble();
 
     // parse color style

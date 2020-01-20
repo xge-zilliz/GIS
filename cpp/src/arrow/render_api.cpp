@@ -101,7 +101,7 @@ get_heatmap(std::shared_ptr<arrow::Array> arr_x, std::shared_ptr<arrow::Array> a
 }
 
 std::shared_ptr<arrow::Array>
-get_choropleth_map(std::shared_ptr<arrow::StringArray> arr_wkt, std::shared_ptr<arrow::Array> arr_color) {
+get_choropleth_map(std::shared_ptr<arrow::Array> arr_wkt, std::shared_ptr<arrow::Array> arr_color) {
 
     auto arr_wkt_length = arr_wkt->length();
     auto arr_color_length = arr_color->length();
@@ -112,7 +112,11 @@ get_choropleth_map(std::shared_ptr<arrow::StringArray> arr_wkt, std::shared_ptr<
     assert(color_type == arrow::Type::UINT32);
     int64_t num_buildings = arr_wkt_length;
 
-    auto input_wkt = (std::string *) arr_wkt->data()->GetValues<uint8_t>(1);
+    auto string_array = std::static_pointer_cast<arrow::StringArray>(arr_wkt);
+    std::vector<std::string> input_wkt(arr_wkt_length);
+    for (int i = 0; i < arr_wkt_length; i++) {
+        input_wkt[i] = string_array->GetString(i);
+    }
     auto input_color = (uint32_t *) arr_color->data()->GetValues<uint8_t>(1);
 
     auto output = choroplethmap(input_wkt, input_color, num_buildings);

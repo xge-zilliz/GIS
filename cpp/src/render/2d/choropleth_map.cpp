@@ -43,7 +43,11 @@ template
 class ChoroplethMap<double>;
 
 template<typename T>
-ChoroplethMap<T>::ChoroplethMap(std::string *choropleth_wkt,
+ChoroplethMap<T>::ChoroplethMap()
+    : choropleth_wkt_(), count_(nullptr), num_buildings_(0) {}
+
+template<typename T>
+ChoroplethMap<T>::ChoroplethMap(std::vector<std::string> choropleth_wkt,
                                 T *count,
                                 int64_t num_buildings)
     : choropleth_wkt_(std::move(choropleth_wkt)), count_(count), num_buildings_(num_buildings) {}
@@ -51,6 +55,11 @@ ChoroplethMap<T>::ChoroplethMap(std::string *choropleth_wkt,
 template<typename T>
 void
 ChoroplethMap<T>::Draw() {
+
+#ifndef USE_GPU
+    glOrtho(0, window()->window_params().width(), 0, window()->window_params().height(), -1, 1);
+#endif
+
     glClear(GL_COLOR_BUFFER_BIT);
 
     glEnable(GL_BLEND);

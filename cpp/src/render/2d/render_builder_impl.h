@@ -99,11 +99,11 @@ heatmap(uint32_t* arr_x,
 
 template<typename T>
 std::pair<std::shared_ptr<uint8_t>, int64_t>
-choroplethmap(std::string* arr_wkt, T* arr_c, int64_t num_buildings) {
+choroplethmap(std::vector<std::string> arr_wkt, T* arr_c, int64_t num_buildings) {
     ChoroplethMap<T> choropleth_map(arr_wkt, arr_c, num_buildings);
     std::string vega = "{\n"
-                       "  \"width\": 300,\n"
-                       "  \"height\": 200,\n"
+                       "  \"width\": 1900,\n"
+                       "  \"height\": 1410,\n"
                        "  \"description\": \"choropleth_map\",\n"
                        "  \"data\": [\n"
                        "    {\n"
@@ -122,9 +122,9 @@ choroplethmap(std::string* arr_wkt, T* arr_c, int64_t num_buildings) {
                        "    {\n"
                        "      \"encode\": {\n"
                        "        \"enter\": {\n"
-                       "          \"bounding_box\": {\"value\": [-74.05996214647708, 40.67830853301683, -73.78204329732839, 40.85424506900077]},\n"
+                       "          \"bounding_box\": {\"value\": [-73.984092,40.753893,-73.977588,40.756342]},\n"
                        "          \"color_style\": {\"value\": \"blue_to_red\"},\n"
-                       "          \"ruler\": {\"value\": [2.5, 10]},\n"
+                       "          \"ruler\": {\"value\": [2.5, 5]},\n"
                        "          \"opacity\": {\"value\": 1.0}\n"
                        "        }\n"
                        "      }\n"
