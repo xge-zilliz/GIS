@@ -3,7 +3,7 @@
 namespace zilliz {
 namespace render {
 
-std::pair<std::shared_ptr<uint8_t>, int64_t>
+std::pair<uint8_t*, int64_t>
 pointmap(uint32_t* arr_x, uint32_t* arr_y, int64_t num) {
     PointMap point_map(arr_x, arr_y, num);
     std::string vega = "{\n"
@@ -46,11 +46,16 @@ pointmap(uint32_t* arr_x, uint32_t* arr_y, int64_t num) {
 
     const auto &render_output = point_map.Render();
     const auto &output_image_size = point_map.output_image_size();
+//    uint8_t* temp = nullptr;
+//    int temp1 = 3;
+
     return std::make_pair(render_output, output_image_size);
+//    return std::make_pair(temp, temp1);
+
 }
 
 template<typename T>
-std::pair<std::shared_ptr<uint8_t>, int64_t>
+std::pair<uint8_t*, int64_t>
 heatmap(uint32_t* arr_x,
         uint32_t* arr_y,
         T* arr_c,
@@ -98,7 +103,7 @@ heatmap(uint32_t* arr_x,
 }
 
 template<typename T>
-std::pair<std::shared_ptr<uint8_t>, int64_t>
+std::pair<uint8_t*, int64_t>
 choroplethmap(std::vector<std::string> arr_wkt, T* arr_c, int64_t num_buildings) {
     ChoroplethMap<T> choropleth_map(arr_wkt, arr_c, num_buildings);
     std::string vega = "{\n"

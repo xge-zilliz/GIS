@@ -14,7 +14,7 @@ class ChoroplethMap : public General2D {
 
     ChoroplethMap(std::vector<std::string> choropleth_wkt, T *count, int64_t num_vertices);
 
-    std::shared_ptr<uint8_t>
+    virtual uint8_t*
     Render() final;
 
     void
