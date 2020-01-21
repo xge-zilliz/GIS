@@ -25,23 +25,7 @@ PointMap::InputInit() {
 
 void
 PointMap::DataInit() {
-    //set point_value
-    auto input_data = array_vector();
-    auto x_array = input_data[0];
-    auto y_array = input_data[1];
 
-    auto x_length = x_array->length();
-    auto y_length = y_array->length();
-    auto x_type = x_array->type_id();
-    auto y_type = y_array->type_id();
-    assert(x_length == y_length);
-    assert(x_type == arrow::Type::UINT32);
-    assert(y_type == arrow::Type::UINT32);
-    num_vertices_ = x_length / sizeof(uint32_t);
-
-    //array{ArrayData{vector<Buffer{uint8_t*}>}}
-    vertices_x_ = (uint32_t *) x_array->data()->GetValues<uint8_t>(1);
-    vertices_y_ = (uint32_t *) y_array->data()->GetValues<uint8_t>(1);
 }
 
 void

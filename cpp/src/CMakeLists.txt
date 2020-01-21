@@ -4,6 +4,7 @@ set(2d_src
         ${CMAKE_CURRENT_SOURCE_DIR}/render/2d/general_2d.cpp
         render/2d/heatmap/heatmap.cpp
         render/2d/heatmap/set_color.cpp
+        render/2d/weighted_pointmap.cpp
         )
 set(window_src
         ${CMAKE_CURRENT_SOURCE_DIR}/render/window/window2d.cpp
@@ -20,6 +21,7 @@ set(util_src
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega_scatter_plot/vega_circle2d.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega_heatmap/vega_heatmap.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/vega/vega_scatter_plot/vega_weighted_circle2d.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/color/color.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/render/utils/color/color_gradient.cpp
         )

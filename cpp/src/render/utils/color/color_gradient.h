@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include "render/utils/color/color.h"
 
 namespace zilliz {
 namespace render {
@@ -22,6 +22,8 @@ class ColorGradient
     ColorGradient()  {  createDefaultHeatMapGradient();  }
 
     void createDefaultHeatMapGradient();
+
+    void createWeightGradient(Color start, Color end);
 
     void getColorAtValue(const float value, float &red, float &green, float &blue);
 };

@@ -90,5 +90,87 @@ heatmap(uint32_t* arr_x,
 
     return std::make_pair(heat_map.Render(), heat_map.output_image_size());
 }
+
+template<typename T>
+std::pair<uint8_t*, int64_t>
+weighted_pointmap(uint32_t* arr_x,
+        uint32_t* arr_y,
+        T* arr_c,
+        int64_t num_vertices) {
+    WeightedPointMap<T> weighted_pointmap(arr_x, arr_y, arr_c, num_vertices);
+    std::string vega = "{\n"
+                       "  \"width\": 300,\n"
+                       "  \"height\": 200,\n"
+                       "  \"description\": \"circle_2d\",\n"
+                       "  \"data\": [\n"
+                       "    {\n"
+                       "      \"name\": \"data\",\n"
+                       "      \"url\": \"data/data.csv\"\n"
+                       "    }\n"
+                       "  ],\n"
+                       "  \"scales\": [\n"
+                       "    {\n"
+                       "      \"name\": \"x\",\n"
+                       "      \"type\": \"linear\",\n"
+                       "      \"domain\": {\"data\": \"data\", \"field\": \"c0\"}\n"
+                       "    },\n"
+                       "    {\n"
+                       "      \"name\": \"y\",\n"
+                       "      \"type\": \"linear\",\n"
+                       "      \"domain\": {\"data\": \"data\", \"field\": \"c1\"}\n"
+                       "    }\n"
+                       "  ],\n"
+                       "  \"marks\": [\n"
+                       "    {\n"
+                       "      \"encode\": {\n"
+                       "        \"enter\": {\n"
+                       "          \"color_range_start\": {\"value\": \"#0000ff\"},\n"
+                       "          \"color_range_end\": {\"value\": \"#ff0000\"},\n"
+                       "          \"color_ruler\": {\"value\": [100,200]}\n"
+                       "        }\n"
+                       "      }\n"
+                       "    }\n"
+                       "  ]\n"
+                       "}";
+
+//    std::string vega = "{\n"
+//                       "  \"width\": 300,\n"
+//                       "  \"height\": 200,\n"
+//                       "  \"description\": \"circle_2d\",\n"
+//                       "  \"data\": [\n"
+//                       "    {\n"
+//                       "      \"name\": \"data\",\n"
+//                       "      \"url\": \"data/data.csv\"\n"
+//                       "    }\n"
+//                       "  ],\n"
+//                       "  \"scales\": [\n"
+//                       "    {\n"
+//                       "      \"name\": \"x\",\n"
+//                       "      \"type\": \"linear\",\n"
+//                       "      \"domain\": {\"data\": \"data\", \"field\": \"c0\"}\n"
+//                       "    },\n"
+//                       "    {\n"
+//                       "      \"name\": \"y\",\n"
+//                       "      \"type\": \"linear\",\n"
+//                       "      \"domain\": {\"data\": \"data\", \"field\": \"c1\"}\n"
+//                       "    }\n"
+//                       "  ],\n"
+//                       "  \"marks\": [\n"
+//                       "    {\n"
+//                       "      \"encode\": {\n"
+//                       "        \"enter\": {\n"
+//                       "          \"corlor_range\": {\"value\": [0x0000FF,0xFF0000]},\n"
+//                       "          \"corlor_ruler\": {\"value\": [100,200]}\n"
+//                       "        }\n"
+//                       "      }\n"
+//                       "    }\n"
+//                       "  ]\n"
+//                       "}";
+    VegaWeightedCircle2d vega_weighted_pointmap(vega);
+    weighted_pointmap.mutable_weighted_point_vega() = vega_weighted_pointmap;
+
+    return std::make_pair(weighted_pointmap.Render(), weighted_pointmap.output_image_size());
+}
+
 }
 }
