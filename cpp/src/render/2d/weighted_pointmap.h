@@ -14,6 +14,8 @@ class WeightedPointMap : public General2D {
 
     WeightedPointMap(uint32_t* input_x, uint32_t* input_y, T* count, int64_t num_vertices);
 
+    WeightedPointMap(uint32_t* input_x, uint32_t* input_y, uint32_t* point_size, T* count, int64_t num_vertices);
+
     void
     DataInit() final;
 
@@ -36,6 +38,9 @@ class WeightedPointMap : public General2D {
     uint32_t*
     mutable_vertices_y() { return vertices_y_; }
 
+    uint32_t*
+    mutable_point_szie() { return point_size_; }
+
     VegaWeightedCircle2d&
     mutable_weighted_point_vega() {return weighted_point_vega_; }
 
@@ -45,11 +50,15 @@ class WeightedPointMap : public General2D {
     void
     set_colors();
 
+    void
+    set_point_size();
+
  private:
     unsigned int VAO_;
     unsigned int VBO_[3];
     uint32_t* vertices_x_;
     uint32_t* vertices_y_;
+    uint32_t* point_size_;
     T* count_;
     float *colors_;
     size_t num_vertices_;

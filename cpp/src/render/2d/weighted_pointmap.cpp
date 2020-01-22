@@ -41,12 +41,17 @@ class WeightedPointMap<double>;
 
 template<typename T>
 WeightedPointMap<T>::WeightedPointMap()
-    : vertices_x_(nullptr), vertices_y_(nullptr), num_vertices_(0) {
+    : vertices_x_(nullptr), vertices_y_(nullptr), point_size_(nullptr), count_(nullptr), num_vertices_(0) {
 }
 
 template<typename T>
 WeightedPointMap<T>::WeightedPointMap(uint32_t *input_x, uint32_t *input_y, T *count, int64_t num_vertices)
-    : vertices_x_(input_x), vertices_y_(input_y), count_(count), num_vertices_(num_vertices) {
+    : vertices_x_(input_x), vertices_y_(input_y), point_size_(nullptr), count_(count), num_vertices_(num_vertices) {
+}
+
+template<typename T>
+WeightedPointMap<T>::WeightedPointMap(uint32_t *input_x, uint32_t *input_y, uint32_t* point_size, T *count, int64_t num_vertices)
+    : vertices_x_(input_x), vertices_y_(input_y), point_size_(point_size), count_(count), num_vertices_(num_vertices) {
 }
 
 template<typename T>
@@ -79,15 +84,23 @@ void WeightedPointMap<T>::set_colors() {
 }
 
 template<typename T>
+void WeightedPointMap<T>::set_point_size() {
+    int64_t s_offset = 0;
+    for (auto j = 0; j < num_vertices_; j++) {
+        point_size_[s_offset++] = 10;
+    }
+}
+
+template<typename T>
 void
 WeightedPointMap<T>::DataInit() {
-    WindowParams window_params = weighted_point_vega_.window_params();
-    int64_t width = window_params.width();
-    int64_t height = window_params.height();
-    int64_t window_size = width * height;
-
-    colors_ = (float *) malloc(window_size * 4 * sizeof(float));
+    colors_ = (float *) malloc(num_vertices_ * 4 * sizeof(float));
     set_colors();
+
+    if(!point_size_) {
+        point_size_ = (uint32_t *) malloc(num_vertices_ * sizeof(float));
+        set_point_size();
+    }
 }
 
 template<typename T>
@@ -99,6 +112,7 @@ WeightedPointMap<T>::Draw() {
     glEnable(GL_POINT_SMOOTH);
 
 #ifdef USE_GPU
+    glPointSize(20);
     glDrawArrays(GL_POINTS, 0, num_vertices_);
     glFlush();
 
