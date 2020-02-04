@@ -124,6 +124,8 @@ ChoroplethMap<T>::Transform() {
             // TODO: add log here
             std::cout << "Unknown geometry type." << std::endl;
         }
+
+        OGRGeometryFactory::destroyGeometry(geometry);
     }
 }
 
