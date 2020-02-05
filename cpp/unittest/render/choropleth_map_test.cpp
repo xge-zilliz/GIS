@@ -6,7 +6,6 @@
 using namespace zilliz::render;
 
 TEST(TWOD_TEST, HEATMAP_TEST) {
-    ChoroplethMap<uint32_t> choropleth_map;
 
     // param1: wkt string
     std::string wkt_string1 = "POLYGON (("
