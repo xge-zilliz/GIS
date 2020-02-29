@@ -31,6 +31,8 @@ class PointMap : public General2D {
   void DataInit() final;
 
   uint8_t* Render() final;
+  
+  uint8_t* Colorize() final;
 
   void Shader();
 

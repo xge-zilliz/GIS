@@ -36,5 +36,10 @@ std::shared_ptr<arrow::Array> choropleth_map(
     const std::shared_ptr<arrow::Array>& arr_wkt,
     const std::shared_ptr<arrow::Array>& arr_count, const std::string& conf);
 
+
+std::shared_ptr<arrow::Array> Render(const std::shared_ptr<arrow::Array>& buffer,
+				     int hight, 
+				     int width);
+
 }  // namespace render
 }  // namespace zilliz

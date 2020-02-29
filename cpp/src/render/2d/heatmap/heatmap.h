@@ -34,6 +34,8 @@ class HeatMap : public General2D {
 
   uint8_t* Render() final;
 
+  uint8_t* Colorize() final;
+
   void Shader();
 
   void Draw() final;

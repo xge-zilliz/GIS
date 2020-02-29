@@ -29,11 +29,13 @@ namespace render {
 
 class General2D {
  public:
-  ~General2D();
+//  ~General2D();
 
   virtual void DataInit() = 0;
 
   virtual uint8_t* Render() = 0;
+
+  virtual uint8_t* Colorize() = 0;
 
   virtual void Draw() = 0;
 
@@ -60,6 +62,8 @@ class General2D {
   const arrow::ArrayVector& array_vector() const { return array_vector_; }
 
   int output_image_size() { return output_image_size_; }
+  
+  int buffer_size() { return buffer_size_; }
 
  protected:
   Input input_;
@@ -67,6 +71,7 @@ class General2D {
   unsigned char* buffer_;
   unsigned char* output_image_;
   int output_image_size_;
+  int buffer_size_;
 
 #ifndef USE_GPU
 

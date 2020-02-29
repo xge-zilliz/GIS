@@ -166,5 +166,15 @@ uint8_t* ChoroplethMap<T>::Render() {
   return Output();
 }
 
+template <typename T>
+uint8_t* ChoroplethMap<T>::Colorize() {
+  WindowsInit(choropleth_vega_.window_params());
+  SetColor();
+  Transform();
+  Draw();
+  Finalize();
+  return mutable_buffer();
+}
+
 }  // namespace render
 }  // namespace zilliz

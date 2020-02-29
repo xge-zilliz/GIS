@@ -60,7 +60,8 @@ std::shared_ptr<arrow::Array> point_map(const std::shared_ptr<arrow::Array>& arr
   auto input_x = (uint32_t*)arr_x->data()->GetValues<uint8_t>(1);
   auto input_y = (uint32_t*)arr_y->data()->GetValues<uint8_t>(1);
 
-  return out_pic(pointmap(input_x, input_y, x_length, conf));
+//  return out_pic(pointmap(input_x, input_y, x_length, conf));
+  return out_pic(colorize_pointmap(input_x, input_y, x_length, conf));
 }
 
 std::shared_ptr<arrow::Array> heat_map(const std::shared_ptr<arrow::Array>& arr_x,
@@ -87,44 +88,43 @@ std::shared_ptr<arrow::Array> heat_map(const std::shared_ptr<arrow::Array>& arr_
   switch (c_type) {
     case arrow::Type::INT8: {
       auto input_c_int8 = (int8_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<int8_t>(input_x, input_y, input_c_int8, x_length, conf));
+      return out_pic(colorize_heatmap<int8_t>(input_x, input_y, input_c_int8, x_length, conf));
     }
     case arrow::Type::INT16: {
       auto input_c_int16 = (int16_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<int16_t>(input_x, input_y, input_c_int16, x_length, conf));
+      return out_pic(colorize_heatmap<int16_t>(input_x, input_y, input_c_int16, x_length, conf));
     }
     case arrow::Type::INT32: {
       auto input_c_int32 = (int32_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<int32_t>(input_x, input_y, input_c_int32, x_length, conf));
+      return out_pic(colorize_heatmap<int32_t>(input_x, input_y, input_c_int32, x_length, conf));
     }
     case arrow::Type::INT64: {
       auto input_c_int64 = (int64_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(
-          output = heatmap<int64_t>(input_x, input_y, input_c_int64, x_length, conf));
+      return out_pic(colorize_heatmap<int64_t>(input_x, input_y, input_c_int64, x_length, conf));
     }
     case arrow::Type::UINT8: {
       auto input_c_uint8 = (uint8_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<uint8_t>(input_x, input_y, input_c_uint8, x_length, conf));
+      return out_pic(colorize_heatmap<uint8_t>(input_x, input_y, input_c_uint8, x_length, conf));
     }
     case arrow::Type::UINT16: {
       auto input_c_uint16 = (uint16_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<uint16_t>(input_x, input_y, input_c_uint16, x_length, conf));
+      return out_pic(colorize_heatmap<uint16_t>(input_x, input_y, input_c_uint16, x_length, conf));
     }
     case arrow::Type::UINT32: {
       auto input_c_uint32 = (uint32_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<uint32_t>(input_x, input_y, input_c_uint32, x_length, conf));
+      return out_pic(colorize_heatmap<uint32_t>(input_x, input_y, input_c_uint32, x_length, conf));
     }
     case arrow::Type::UINT64: {
       auto input_c_uint64 = (uint64_t*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<uint64_t>(input_x, input_y, input_c_uint64, x_length, conf));
+      return out_pic(colorize_heatmap<uint64_t>(input_x, input_y, input_c_uint64, x_length, conf));
     }
     case arrow::Type::FLOAT: {
       auto input_c_float = (float*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<float>(input_x, input_y, input_c_float, x_length, conf));
+      return out_pic(colorize_heatmap<float>(input_x, input_y, input_c_float, x_length, conf));
     }
     case arrow::Type::DOUBLE: {
       auto input_c_double = (double*)arr_c->data()->GetValues<uint8_t>(1);
-      return out_pic(heatmap<double>(input_x, input_y, input_c_double, x_length, conf));
+      return out_pic(colorize_heatmap<double>(input_x, input_y, input_c_double, x_length, conf));
     }
     default:
       // TODO: add log here
@@ -154,58 +154,68 @@ std::shared_ptr<arrow::Array> choropleth_map(
     case arrow::Type::INT8: {
       auto input_c_int8 = (int8_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<int8_t>(input_wkt, input_c_int8, arr_wkt_length, conf));
+          colorize_choroplethmap<int8_t>(input_wkt, input_c_int8, arr_wkt_length, conf));
     }
     case arrow::Type::INT16: {
       auto input_c_int16 = (int16_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<int16_t>(input_wkt, input_c_int16, arr_wkt_length, conf));
+          colorize_choroplethmap<int16_t>(input_wkt, input_c_int16, arr_wkt_length, conf));
     }
     case arrow::Type::INT32: {
       auto input_c_int32 = (int32_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<int32_t>(input_wkt, input_c_int32, arr_wkt_length, conf));
+          colorize_choroplethmap<int32_t>(input_wkt, input_c_int32, arr_wkt_length, conf));
     }
     case arrow::Type::INT64: {
       auto input_c_int64 = (int64_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<int64_t>(input_wkt, input_c_int64, arr_wkt_length, conf));
+          colorize_choroplethmap<int64_t>(input_wkt, input_c_int64, arr_wkt_length, conf));
     }
     case arrow::Type::UINT8: {
       auto input_c_uint8 = (uint8_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<uint8_t>(input_wkt, input_c_uint8, arr_wkt_length, conf));
+          colorize_choroplethmap<uint8_t>(input_wkt, input_c_uint8, arr_wkt_length, conf));
     }
     case arrow::Type::UINT16: {
       auto input_c_uint16 = (uint16_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<uint16_t>(input_wkt, input_c_uint16, arr_wkt_length, conf));
+          colorize_choroplethmap<uint16_t>(input_wkt, input_c_uint16, arr_wkt_length, conf));
     }
     case arrow::Type::UINT32: {
       auto input_c_uint32 = (uint32_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<uint32_t>(input_wkt, input_c_uint32, arr_wkt_length, conf));
+          colorize_choroplethmap<uint32_t>(input_wkt, input_c_uint32, arr_wkt_length, conf));
     }
     case arrow::Type::UINT64: {
       auto input_c_uint64 = (uint64_t*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<uint64_t>(input_wkt, input_c_uint64, arr_wkt_length, conf));
+          colorize_choroplethmap<uint64_t>(input_wkt, input_c_uint64, arr_wkt_length, conf));
     }
     case arrow::Type::FLOAT: {
       auto input_c_float = (float*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<float>(input_wkt, input_c_float, arr_wkt_length, conf));
+          colorize_choroplethmap<float>(input_wkt, input_c_float, arr_wkt_length, conf));
     }
     case arrow::Type::DOUBLE: {
       auto input_c_double = (double*)arr_count->data()->GetValues<uint8_t>(1);
       return out_pic(
-          choroplethmap<double>(input_wkt, input_c_double, arr_wkt_length, conf));
+          colorize_choroplethmap<double>(input_wkt, input_c_double, arr_wkt_length, conf));
     }
     default:
       // TODO: add log here
       std::cout << "type error!";
   }
   return nullptr;
+}
+
+std::shared_ptr<arrow::Array> Render(const std::shared_ptr<arrow::Array>& buffer,
+                                     int height,
+                                     int width) {
+  auto x_type = buffer->type_id();
+  assert(x_type == arrow::Type::UINT8);
+  auto buffer_data = (uint8_t*)buffer->data()->GetValues<uint8_t>(1);
+
+  return out_pic(Render(buffer_data, height, width));
 }
 
 }  // namespace render

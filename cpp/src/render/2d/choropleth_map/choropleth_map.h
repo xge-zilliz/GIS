@@ -32,6 +32,8 @@ class ChoroplethMap : public General2D {
   ChoroplethMap(std::vector<std::string> choropleth_wkt, T* count, int64_t num_vertices);
 
   uint8_t* Render() final;
+  
+  uint8_t* Colorize() final;
 
   void Draw() final;
 

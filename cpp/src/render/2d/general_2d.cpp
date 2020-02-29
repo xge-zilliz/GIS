@@ -17,16 +17,16 @@
 #include <memory>
 
 #include "render/2d/general_2d.h"
-#include "render/utils/my_zlib_compress.h"
+//#include "render/utils/my_zlib_compress.h"
 
-#define STB_IMAGE_WRITE_IMPLEMENTATION
+//#define STB_IMAGE_WRITE_IMPLEMENTATION
 
-#include "stb/stb_image_write.h"
+//#include "stb/stb_image_write.h"
 
 namespace zilliz {
 namespace render {
 
-General2D::~General2D() { free(buffer_); }
+//General2D::~General2D() { free(buffer_); }
 
 void General2D::WindowsInit(WindowParams window_params) {
 #ifndef USE_GPU
@@ -87,8 +87,8 @@ uint8_t* General2D::Output() {
 }
 
 void General2D::InitBuffer(zilliz::render::WindowParams& window_params) {
-  buffer_ =
-      (unsigned char*)calloc(size_t(window_params.width() * window_params.height()), 4);
+  buffer_size_ = size_t(window_params.width() * window_params.height()) * 4;
+  buffer_ = (unsigned char*)calloc(size_t(window_params.width() * window_params.height()), 4);
 }
 
 void General2D::ExportImage() {
@@ -97,8 +97,8 @@ void General2D::ExportImage() {
   auto pixels = buffer_ + (int)(window_params.width() * 4 * (window_params.height() - 1));
   auto stride_bytes = -(window_params.width() * 4);
 
-  output_image_ = stbi_write_png_to_mem(pixels, stride_bytes, window_params.width(),
-                                        window_params.height(), 4, &output_image_size_);
+//  output_image_ = stbi_write_png_to_mem(pixels, stride_bytes, window_params.width(),
+//                                        window_params.height(), 4, &output_image_size_);
 }
 
 }  // namespace render

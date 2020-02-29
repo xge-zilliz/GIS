@@ -193,5 +193,17 @@ uint8_t* PointMap::Render() {
   return Output();
 }
 
+uint8_t* PointMap::Colorize() {
+  //    InputInit();
+  WindowsInit(point_vega_.window_params());
+//    DataInit();
+#ifdef USE_GPU
+  Shader();
+#endif
+  Draw();
+  Finalize();
+  return mutable_buffer();
+}
+
 }  // namespace render
 }  // namespace zilliz

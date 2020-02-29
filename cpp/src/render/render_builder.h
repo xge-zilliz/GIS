@@ -38,6 +38,20 @@ std::pair<uint8_t*, int64_t> choroplethmap(const std::vector<std::string>& arr_w
                                            T* arr_c, int64_t num_buildings,
                                            const std::string& conf);
 
+std::pair<uint8_t*, int64_t> colorize_pointmap(uint32_t* arr_x, uint32_t* arr_y,
+                                      int64_t num_vertices, const std::string& conf);
+
+template <typename T>
+std::pair<uint8_t*, int64_t> colorize_heatmap(uint32_t* arr_x, uint32_t* arr_y, T* arr_c,
+                                     int64_t num_vertices, const std::string& conf);
+
+template <typename T>
+std::pair<uint8_t*, int64_t> colorize_choroplethmap(const std::vector<std::string>& arr_wkt,
+                                           T* arr_c, int64_t num_buildings,
+                                           const std::string& conf);
+
+std::pair<uint8_t*, int64_t> Render(uint8_t* buffer, int height, int width);
+
 }  // namespace render
 }  // namespace zilliz
 

@@ -232,5 +232,18 @@ uint8_t* HeatMap<T>::Render() {
   return Output();
 }
 
+template <typename T>
+uint8_t* HeatMap<T>::Colorize() {
+  //    InputInit();
+  WindowsInit(heatmap_vega_.window_params());
+  DataInit();
+#ifdef USE_GPU
+  Shader();
+#endif
+  Draw();
+  Finalize();
+  return mutable_buffer();
+}
+
 }  // namespace render
 }  // namespace zilliz
