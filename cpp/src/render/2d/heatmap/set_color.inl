@@ -15,12 +15,10 @@
  */
 #include "render/2d/heatmap/set_color.h"
 #ifndef TEMPLATE_GEN_PREFIX
-// dummy, to make IDE happy
 #define TEMPLATE_GEN_PREFIX extern
 #endif
 
 #ifndef T
-// dummy, to make IDE happy
 #define T int
 #endif
 
