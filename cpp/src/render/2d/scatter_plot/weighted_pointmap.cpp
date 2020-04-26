@@ -711,6 +711,7 @@ void WeightedPointMap<T>::SetPointSize(T* ptr) {
   for (auto i = 0; i < num_vertices_; i++) {
     ptr[i] = ptr[i] >= count_start ? ptr[i] : count_start;
     ptr[i] = ptr[i] <= count_end ? ptr[i] : count_end;
+    ptr[i] = 50 * (ptr[i] - count_start) / (count_end - count_start) + 1;
   }
 }
 
