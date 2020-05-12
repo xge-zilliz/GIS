@@ -5,29 +5,29 @@ import org.apache.spark.sql.types._
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.io.{WKBReader, WKBWriter, WKTWriter}
 
-  @SQLUserDefinedType(udt = classOf[GeometryUDT])
-  class ArcternGeometry(val geo: Geometry) extends Serializable {
-    override def equals(other: Any): Boolean = other match {
-      case that: ArcternGeometry => this.geo.equals(that.geo)
-      case _ => false
-    }
-
-    override def toString: String = new WKTWriter().write(geo)
+@SQLUserDefinedType(udt = classOf[GeometryUDT])
+class ArcternGeometry(val geo: Geometry) extends Serializable {
+  override def equals(other: Any): Boolean = other match {
+    case that: ArcternGeometry => this.geo.equals(that.geo)
+    case _ => false
   }
 
-  class GeometryUDT extends UserDefinedType[ArcternGeometry] {
-    override def sqlType: DataType = ArrayType(ByteType, containsNull = false)
+  override def toString: String = new WKTWriter().write(geo)
+}
 
-    override def serialize(obj: ArcternGeometry): GenericArrayData = {
-      val wkb: Array[Byte] = new WKBWriter().write(obj.geo)
-      new GenericArrayData(wkb)
-    }
+class GeometryUDT extends UserDefinedType[ArcternGeometry] {
+  override def sqlType: DataType = ArrayType(ByteType, containsNull = false)
 
-    override def deserialize(datum: Any): ArcternGeometry = {
-      datum match {
-        case values: ArrayData => new ArcternGeometry(new WKBReader().read(values.toByteArray()))
-      }
-    }
-
-    override def userClass: Class[ArcternGeometry] = classOf[ArcternGeometry]
+  override def serialize(obj: ArcternGeometry): GenericArrayData = {
+    val wkb: Array[Byte] = new WKBWriter().write(obj.geo)
+    new GenericArrayData(wkb)
   }
+
+  override def deserialize(datum: Any): ArcternGeometry = {
+    datum match {
+      case values: ArrayData => new ArcternGeometry(new WKBReader().read(values.toByteArray()))
+    }
+  }
+
+  override def userClass: Class[ArcternGeometry] = classOf[ArcternGeometry]
+}
