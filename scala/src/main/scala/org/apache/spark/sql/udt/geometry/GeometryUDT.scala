@@ -1,4 +1,4 @@
-package org.apache.spark.udt.geometry
+package org.apache.spark.sql.udt.geometry
 
 import org.apache.spark.sql.catalyst.util._
 import org.apache.spark.sql.types._
