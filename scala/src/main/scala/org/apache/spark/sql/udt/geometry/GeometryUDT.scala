@@ -1,11 +1,9 @@
-package org.apache.spark.sql.udt.geometry {
+package org.apache.spark.udt.geometry
 
-  import org.apache.spark.sql.catalyst.util._
-  import org.apache.spark.sql.types._
-  import org.locationtech.jts.geom.Geometry
-  import org.locationtech.jts.io.WKTWriter
-  import org.locationtech.jts.io.WKBWriter
-  import org.locationtech.jts.io.WKBReader
+import org.apache.spark.sql.catalyst.util._
+import org.apache.spark.sql.types._
+import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.io.{WKBReader, WKBWriter, WKTWriter}
 
   @SQLUserDefinedType(udt = classOf[GeometryUDT])
   class ArcternGeometry(val geo: Geometry) extends Serializable {
@@ -33,5 +31,3 @@ package org.apache.spark.sql.udt.geometry {
 
     override def userClass: Class[ArcternGeometry] = classOf[ArcternGeometry]
   }
-
-}

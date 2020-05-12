@@ -3,7 +3,8 @@ import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
 import org.apache.spark.sql.types._
-import org.locationtech.jts.geom.{Coordinate, GeometryFactory}
+import org.apache.spark.udt.geometry.ArcternGeometry
+import org.apache.spark.udt.geometry.GeometryUDT
 import org.locationtech.jts.io.WKTReader
 
 class UDTTest extends FunSuite {
