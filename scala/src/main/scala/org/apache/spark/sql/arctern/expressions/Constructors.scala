@@ -41,6 +41,7 @@ case class ST_GeomFromText(inputExpr: Seq[Expression]) extends Expression {
             ${ev.value}_geo = new org.locationtech.jts.io.WKTReader().read(${wkt.value}.toString());
           } catch(org.locationtech.jts.io.ParseException e) {
             // TODO: add log here
+            System.out.println(e.toString());
           }
           org.apache.spark.sql.arctern.GeometryUDT ${ev.value}_geo_udt = new org.apache.spark.sql.arctern.GeometryUDT();
           ${CodeGenerator.javaType(ArrayType(StringType, containsNull = false))} ${ev.value} = ${ev.value}_geo_udt.serialize(${ev.value}_geo);
