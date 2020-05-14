@@ -14,24 +14,12 @@
  * limitations under the License.
  */
 
-import org.scalatest.FunSuite
-import org.apache.spark.sql.{Row, SparkSession}
-import org.apache.log4j.Logger
-import org.apache.log4j.Level
+import org.apache.spark.sql.Row
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.arctern._
 import org.apache.spark.sql.arctern.expressions.ST_GeomFromText
 
-class ConstructorsTest extends FunSuite {
+class ConstructorsTest extends AdapterTest {
   test("ST_GeomFromText") {
-
-    Logger.getLogger("org").setLevel(Level.WARN)
-    val spark = SparkSession.builder()
-      .master("local[*]")
-      .appName("ST_GeomFromText test")
-      .getOrCreate()
-
-    UdtRegistratorWrapper.registerUDT()
     spark.sessionState.functionRegistry.createOrReplaceTempFunction("ST_GeomFromText", ST_GeomFromText)
 
     val data = Seq(
@@ -45,11 +33,9 @@ class ConstructorsTest extends FunSuite {
     val rdd_d = spark.sparkContext.parallelize(data)
     val schema = StructType(Array(StructField("idx", IntegerType, nullable = false), StructField("wkt", StringType, nullable = false)))
     val df = spark.createDataFrame(rdd_d, schema)
-    df.createOrReplaceTempView("data")
-    val rst = spark.sql("select idx, ST_GeomFromText(wkt) from data")
-    rst.queryExecution.debug.codegen()
-    rst.show(false)
+    df.createOrReplaceTempView("table_ST_GeomFromText")
+    val rst = spark.sql("select idx, ST_GeomFromText(wkt) from table_ST_GeomFromText")
 
-    spark.stop()
+    rst.show(false)
   }
 }
