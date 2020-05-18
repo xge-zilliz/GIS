@@ -15,6 +15,7 @@
  */
 
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.arctern._
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Suite}
@@ -22,6 +23,7 @@ import org.scalatest.{BeforeAndAfterAll, FunSuite, Suite}
 class AdapterTest extends FunSuite with BeforeAndAfterAll {
 
   var spark: SparkSession = _
+  var sparkContext = null
 
   override def beforeAll {
     Logger.getLogger("org").setLevel(Level.WARN)

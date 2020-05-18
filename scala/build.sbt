@@ -2,7 +2,7 @@ name := "arctern_scala"
 
 version := "0.1"
 
-scalaVersion := "2.12.11"
+scalaVersion := "2.12.10"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 libraryDependencies += "org.locationtech.jts" % "jts-core" % "1.16.1"

@@ -15,12 +15,19 @@
  */
 package org.apache.spark.sql.arctern
 
+import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.arctern.index.IndexType
 import org.apache.spark.sql.catalyst.util._
 import org.apache.spark.sql.types._
 import org.locationtech.jts.geom.Geometry
-import org.locationtech.jts.io.{WKBReader, WKBWriter, WKTReader, WKTWriter, ParseException}
+import org.locationtech.jts.io.{ParseException, WKBReader, WKBWriter, WKTReader, WKTWriter}
 
 class GeometryUDT extends UserDefinedType[Geometry] {
+
+  var geo: GenericArrayData = null
+
+  def trans(item: Geometry) = { geo = GeometryUDT.trans(item)}
+
   override def sqlType: DataType = ArrayType(ByteType, containsNull = false)
 
   override def serialize(obj: Geometry): GenericArrayData = GeometryUDT.GeomSerialize(obj)
@@ -28,9 +35,12 @@ class GeometryUDT extends UserDefinedType[Geometry] {
   override def deserialize(datum: Any): Geometry = GeometryUDT.GeomDeserialize(datum)
 
   override def userClass: Class[Geometry] = classOf[Geometry]
+
 }
 
 object GeometryUDT {
+  def trans(obj: Geometry): GenericArrayData = {GeometryUDT.GeomSerialize(obj)}
+
   def GeomSerialize(obj: Geometry): GenericArrayData = new GenericArrayData(ToWkb(obj))
 
   def GeomDeserialize(datum: Any): Geometry = {
@@ -60,4 +70,5 @@ object GeometryUDT {
       case _: ParseException => null
     }
   }
+
 }
