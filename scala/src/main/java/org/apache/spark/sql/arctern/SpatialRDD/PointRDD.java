@@ -4,11 +4,10 @@ import org.apache.spark.sql.arctern.enums.FileDataSplitter;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.arctern.formatMapper.PointFormatMapper;
-import org.apache.spark.storage.StorageLevel;
-import org.apache.spark.sql.arctern.GeometryUDT;
+import org.locationtech.jts.geom.Point;
 
 public class PointRDD
-        extends SpatialRDD<GeometryUDT>
+        extends SpatialRDD<Point>
 {
     public PointRDD() {}
 

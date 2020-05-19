@@ -1,13 +1,13 @@
 package org.apache.spark.sql.arctern.SpatialRDD;
 
-import org.apache.spark.sql.arctern.GeometryUDT;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.arctern.enums.FileDataSplitter;
 import org.apache.spark.sql.arctern.formatMapper.PolygonFormatMapper;
+import org.locationtech.jts.geom.Polygon;
 
 public class PolygonRDD
-        extends SpatialRDD<GeometryUDT>
+        extends SpatialRDD<Polygon>
 {
     public PolygonRDD(JavaSparkContext sparkContext, String InputLocation, Integer startOffset, Integer endOffset,
                       FileDataSplitter splitter, boolean carryInputData)

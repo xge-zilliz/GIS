@@ -8,6 +8,6 @@ class WrappedSTRtree[T](nodeCapacity:Int = 10) extends WrapperIndex[T,STRtree](
 
   override def size(): Int = index.size()
 
-//  def insert(itemEnv: Envelope, item: GeometryUDT): Unit = index.insert(itemEnv, item)
+//  def insert(itemEnv: Envelope, item: Geometry): Unit = index.insert(itemEnv, item)
 
 }

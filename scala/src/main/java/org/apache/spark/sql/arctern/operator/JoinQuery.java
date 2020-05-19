@@ -1,7 +1,5 @@
 package org.apache.spark.sql.arctern.operator;
 
-import org.apache.spark.rdd.RDD;
-import org.apache.spark.sql.arctern.GeometryUDT;
 import org.apache.spark.sql.arctern.SpatialRDD.SpatialRDD;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.spark.SparkContext;
@@ -9,14 +7,14 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
-import org.codehaus.janino.Java;
+import org.locationtech.jts.geom.Geometry;
 import scala.Tuple2;
 
 import java.util.HashSet;
 
 public class JoinQuery {
 
-    private static <U extends GeometryUDT, T extends GeometryUDT> JavaPairRDD<U, HashSet<T>> collectGeometriesByKey(JavaPairRDD<U, T> input)
+    private static <U extends Geometry, T extends Geometry> JavaPairRDD<U, HashSet<T>> collectGeometriesByKey(JavaPairRDD<U, T> input)
     {
         return input.aggregateByKey(
                 new HashSet<T>(),
@@ -42,7 +40,7 @@ public class JoinQuery {
                 });
     }
 
-    public static <U extends GeometryUDT, T extends GeometryUDT> JavaPairRDD<U, T> spatialJoin(
+    public static <U extends Geometry, T extends Geometry> JavaPairRDD<U, T> spatialJoin(
             SpatialRDD<U> leftRDD,
             SpatialRDD<T> rightRDD)
             throws Exception
@@ -66,14 +64,14 @@ public class JoinQuery {
         });
     }
 
-    public static <U extends GeometryUDT, T extends GeometryUDT> JavaPairRDD<U, HashSet<T>> SpatialJoinQuery(SpatialRDD<U> spatialRDD, SpatialRDD<T> queryRDD, boolean useIndex)
+    public static <U extends Geometry, T extends Geometry> JavaPairRDD<U, HashSet<T>> SpatialJoinQuery(SpatialRDD<U> spatialRDD, SpatialRDD<T> queryRDD, boolean useIndex)
             throws Exception
     {
         final JavaPairRDD<U, T> joinResults = spatialJoin(spatialRDD, queryRDD);
         return collectGeometriesByKey(joinResults);
     }
 
-    public static <U extends GeometryUDT, T extends GeometryUDT> JavaPairRDD<U, HashSet<T>> SpatialJoinQuery(JavaRDD<T> spatialRDD, JavaRDD<U> queryRDD, boolean useIndex)
+    public static <U extends Geometry, T extends Geometry> JavaPairRDD<U, HashSet<T>> SpatialJoinQuery(JavaRDD<T> spatialRDD, JavaRDD<U> queryRDD, boolean useIndex)
             throws Exception
     {
         SpatialRDD<T> left = new SpatialRDD<T>();

@@ -15,7 +15,6 @@
  */
 
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.arctern.GeometryUDT
 import org.apache.spark.sql.arctern.SpatialRDD.{PointRDD, PolygonRDD, SpatialRDD}
 import org.apache.spark.sql.arctern.enums.FileDataSplitter
 import org.apache.spark.sql.arctern.index.IndexType
@@ -41,6 +40,7 @@ class IndexTest extends AdapterTest {
 
     polygonRDD.buildIndex(PolygonRDDIndexType)
     val resultsize = JoinQuery.SpatialJoinQuery(pointRDD, polygonRDD, true).count()
+    print(resultsize)
   }
 
 //  test("test 2") {

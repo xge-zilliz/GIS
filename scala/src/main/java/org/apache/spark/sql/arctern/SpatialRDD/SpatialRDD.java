@@ -1,7 +1,6 @@
 package org.apache.spark.sql.arctern.SpatialRDD;
 
 import org.apache.spark.rdd.RDD;
-import org.apache.spark.sql.arctern.GeometryUDT;
 import org.apache.spark.sql.arctern.index.IndexBuilder;
 import org.apache.spark.sql.arctern.index.IndexType;
 import org.locationtech.jts.geom.*;
@@ -12,7 +11,7 @@ import org.apache.spark.api.java.JavaRDD;
 import java.io.Serializable;
 import java.util.*;
 
-public class SpatialRDD<T extends GeometryUDT>
+public class SpatialRDD<T extends Geometry>
         implements Serializable
 {
 

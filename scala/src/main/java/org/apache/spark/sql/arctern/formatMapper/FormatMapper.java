@@ -6,7 +6,6 @@ import org.locationtech.jts.geom.*;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.operation.valid.IsValidOp;
 import org.apache.spark.api.java.function.FlatMapFunction;
-import org.apache.spark.sql.arctern.GeometryUDT;
 
 import java.io.Serializable;
 import java.util.*;
