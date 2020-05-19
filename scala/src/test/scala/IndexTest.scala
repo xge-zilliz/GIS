@@ -40,33 +40,6 @@ class IndexTest extends AdapterTest {
 
     polygonRDD.buildIndex(PolygonRDDIndexType)
     val resultsize = JoinQuery.SpatialJoinQuery(pointRDD, polygonRDD, true).count()
-    print(resultsize)
+//    print(resultsize)
   }
-
-//  test("test 2") {
-//    val data1 = Seq(
-//      Row(1, "POINT (15 15)"),
-//      Row(2, "POINT (35 55)"),
-//      Row(3, "POINT (15 30)"),
-//      Row(4, "POINT (35 35)")
-//    )
-//
-//    val data2 = Seq(
-//      Row(1, "POLYGON ((0 0, 20 0, 20 20, 0 20, 0 0))"),
-//      Row(2, "POLYGON ((20 0, 40 0, 40 20, 20 20, 20 0))"),
-//      Row(3, "POLYGON ((0 20, 20 20, 20 40, 0 40, 0 20))"),
-//      Row(4, "POLYGON ((20 20, 40 20, 40 40, 20 40, 20 20))")
-//    )
-//
-//    val rdd_1 = spark.sparkContext.parallelize(data1)
-//    val rdd_2 = spark.sparkContext.parallelize(data2)
-//    val pointRDD = new SpatialRDD[GeometryUDT]()
-//    pointRDD.setRawSpatialRDD1(rdd_1)
-//    val polygonRDD = new SpatialRDD[GeometryUDT]()
-//    polygonRDD.setRawSpatialRDD1(rdd_2)
-//
-//    val PolygonRDDIndexType = IndexType.RTREE
-//
-//    polygonRDD.buildIndex(PolygonRDDIndexType)
-//  }
 }
