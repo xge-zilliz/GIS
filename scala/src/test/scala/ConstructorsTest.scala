@@ -15,6 +15,7 @@
  */
 
 import org.apache.spark.sql.Row
+import org.apache.spark.sql.arctern.GeometryUDT
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.arctern.expressions.ST_GeomFromText
 
@@ -60,7 +61,7 @@ class ConstructorsTest extends AdapterTest {
     df.createOrReplaceTempView("table_ST_GeomFromText")
     val rst = spark.sql("select idx, ST_GeomFromText(wkt) from table_ST_GeomFromText")
 
-    //    rst.queryExecution.debug.codegen()
+//    rst.queryExecution.debug.codegen()
 
     rst.show(false)
   }

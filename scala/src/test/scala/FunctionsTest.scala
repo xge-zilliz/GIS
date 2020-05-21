@@ -20,6 +20,7 @@ import org.apache.spark.sql.arctern._
 
 class FunctionsTest extends AdapterTest {
  test("ST_Within") {
+
      val data = Seq(
        Row(1, GeometryUDT.FromWkt("POINT (20 20)"), GeometryUDT.FromWkt("POLYGON ((0 0, 40 0, 40 40, 0 40, 0 0))")),
        Row(2, GeometryUDT.FromWkt("POINT (50 50)"), GeometryUDT.FromWkt("POLYGON ((0 0, 40 0, 40 40, 0 40, 0 0))")),
