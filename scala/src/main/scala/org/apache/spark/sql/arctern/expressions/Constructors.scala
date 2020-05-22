@@ -28,7 +28,7 @@ case class ST_GeomFromText(inputExpr: Seq[Expression]) extends ArcternExpr {
 
   override def nullable: Boolean = true
 
-  override def eval(input: InternalRow): Any = {println()}
+  override def eval(input: InternalRow): Any = {}
 
   override protected def doGenCode(ctx: CodegenContext, ev: ExprCode): ExprCode = {
 
