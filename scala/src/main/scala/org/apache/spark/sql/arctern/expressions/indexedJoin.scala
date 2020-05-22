@@ -9,10 +9,10 @@ import scala.util.control.Breaks._
 case class IndexedJoin(broadcast: Broadcast[IndexBuilder]) {
   def index = broadcast.value
 
-  def join(input: Array[String]): Array[String] = {
-    var result = new Array[String](input.size)
+  def join(input: Array[Geometry]): Array[Geometry] = {
+    var result = new Array[Geometry](input.size)
     input.indices.foreach { i =>
-      val geo_search = GeometryUDT.FromWkt(input(i))
+      val geo_search = input(i)
       val env = geo_search.getEnvelopeInternal
       val geo_list = index.query(env)
       breakable {
@@ -20,7 +20,7 @@ case class IndexedJoin(broadcast: Broadcast[IndexBuilder]) {
           val loop_geo = geo.asInstanceOf[Geometry]
           if (geo_search.intersects(loop_geo)) {
             //TODO::mutil indexed result intersects with searched geometry
-            result(i) = loop_geo.toString
+            result(i) = loop_geo
             break
           }
         }

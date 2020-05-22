@@ -15,9 +15,11 @@
  */
 
 import org.apache.spark.sql.Row
+import org.apache.spark.sql.arctern.GeometryUDT
 import org.apache.spark.sql.arctern.expressions.IndexedJoin
 import org.apache.spark.sql.arctern.index.{IndexBuilder, RTreeIndex}
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.io.WKTReader
 
 class IndexTest extends AdapterTest {
@@ -69,16 +71,15 @@ class IndexTest extends AdapterTest {
     val rdd_d = spark.sparkContext.parallelize(data)
     val schema = StructType(Array(StructField("idx", IntegerType, nullable = false), StructField("geo1", StringType, nullable = false), StructField("geo2", StringType, nullable = false)))
     val df = spark.createDataFrame(rdd_d, schema)
-    val geo1 = df.select("geo1").collect.map(row => row.getString(0))
-    val geo2 = df.select("geo2").collect.map(row => row.getString(0))
+    val geo1 = df.select("geo1").collect.map(row => GeometryUDT.FromWkt(row.getString(0)))
+    val geo2 = df.select("geo2").collect.map(row => GeometryUDT.FromWkt(row.getString(0)))
     index.insert(geo2)
 
     val broadcastVar = spark.sparkContext.broadcast(index)
-    println(broadcastVar.value)
     val joincase = new IndexedJoin(broadcastVar)
     val result = joincase.join(geo1)
     result.foreach{ out =>
-      println(out)
+      println(out.toString)
     }
   }
 
@@ -101,8 +102,8 @@ class IndexTest extends AdapterTest {
       .option("header", "false")
       .load(PolygonLocation)
 
-    val geo1 = df0.select("_c0").collect.map(row => row.getString(0))
-    val geo2 = df1.select("_c0").collect.map(row => row.getString(0))
+    val geo1 = df0.select("_c0").collect.map(row => GeometryUDT.FromWkt(row.getString(0)))
+    val geo2 = df1.select("_c0").collect.map(row => GeometryUDT.FromWkt(row.getString(0)))
     println("preference test 1++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     val t1 = System.currentTimeMillis
     val index = new IndexBuilder("RTREE")
@@ -121,7 +122,7 @@ class IndexTest extends AdapterTest {
     println((t4 - t3)/1000.0 + " secs")
     println("preference test 4++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 //    result.foreach{ out =>
-//      println(out)
+//      println(out.toString)
 //    }
   }
 

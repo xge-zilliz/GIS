@@ -18,9 +18,8 @@ class IndexBuilder(indexType: String) extends SpatialIndex with Serializable {
 
   override def insert(itemEnv: Envelope, item: Any): Unit = index.insert(itemEnv, item)
 
-  def insert (array: Array[String]): Unit = {
-    array.foreach { geo_str =>
-      val geo = GeometryUDT.FromWkt(geo_str)
+  def insert (array: Array[Geometry]): Unit = {
+    array.foreach { geo =>
       val env = geo.getEnvelopeInternal
       index.insert(env, geo)
     }
