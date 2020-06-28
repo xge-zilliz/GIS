@@ -12,8 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=too-many-lines
-# pylint: disable=too-many-public-methods, unused-argument, redefined-builtin
+from arctern.geodataframe import GeoDataFrame
+import numpy as np
 
-from .geodataframe import GeoDataFrame
-# from .sjoin import sjoin
+def test_dataframe():
+    data = {
+        "A": range(5),
+        "B": np.arange(5.0),
+        "C": [1, 1, 1, 2, 2],
+        "geo1": ["POINT (0 0)", "POINT (1 1)", "POINT (2 2)", "POINT (3 3)", "POINT (4 4)"],
+        "geo2": ["POINT (0 0)", "POINT (1 1)", "POINT (2 2)", "POINT (3 3)", "POINT (4 4)"],
+    }
+    df = GeoDataFrame(data, geometries=["geo1", "geo2"], crs=["epsg:4326", "epsg:3857"])
+    print(df)

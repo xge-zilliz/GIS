@@ -38,9 +38,9 @@ DEFAULT_GEO_COLUMN_NAME = ["geometry"]
 
 class GeoDataFrame(DataFrame):
     _metadata = ["_crs", "_geometry_column_name"]
-    _geometry_column_name = DEFAULT_GEO_COLUMN_NAME
-    _sindex = None
-    _sindex_generated = False
+    _geometry_column_name = {}
+    _sindex = {}
+    _sindex_generated = {}
     _crs = {}
 
     def __init__(self, *args, **kwargs):
